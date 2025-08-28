@@ -1,25 +1,86 @@
+// src/components/Hero.jsx
+
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+// --- Your Final Data for the Slides ---
+const slidesData = [
+  {
+    id: 1,
+    imageUrl: '/principal.jpg',
+    caption: 'Convocation Ceremony @APSIT',
+  },
+  {
+    id: 2,
+    imageUrl: '/recru.jpg',
+    caption: 'Our Recruiters',
+  },
+  {
+    id: 3,
+    imageUrl: '/students.jpeg',
+    caption: 'LTI Mind Tree Placed Students',
+  },
+  {
+    id: 4,
+    imageUrl: '/placed-student.png',
+    caption: 'Capgemini Placed Students of 2025 Batch',
+  },
+  {
+    id: 5,
+    imageUrl: '/society.jpg',
+    caption: 'APSIT: Indian Society for Technical Education (ISTE), Maharashtra-Goa has awarded APSIT "The Best Engineering College" and "Best Principal"',
+  },
+  {
+  id: 6,
+  imageUrl: '/aurionpro.jpeg',
+  caption: 'Aurionpro Placed Students',
+  }
+];
+
 export default function Hero() {
   return (
-    <section className="relative">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-600 via-indigo-500 to-sky-500"></div>
-      <div className="container-fluid py-16 md:py-24 text-white">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl md:text-5xl font-bold leading-tight">Welcome to Shah Institute of Technology</h2>
-            <p className="mt-4 text-base md:text-lg text-white/90">Learn. Build. Grow. A modern campus focused on practical learning and placements.</p>
-            <div className="mt-6 flex gap-3">
-              <a href="#admissions" className="inline-block bg-white text-primary-700 font-semibold px-4 py-2 rounded-xl">Apply Now</a>
-              <a href="#about" className="inline-block bg-white/15 ring-1 ring-white/40 text-white px-4 py-2 rounded-xl">Explore</a>
+    // UPDATED: Added back the modern container styling for a polished look
+    <div className="relative my-1 rounded-lg border border-gray-200 shadow-lg overflow-hidden">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={0}
+        slidesPerView={1}
+        loop={true}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
+        navigation={true}
+        pagination={{ clickable: true }}
+        className="mySwiper"
+        style={{
+          '--swiper-navigation-color': '#fff',
+          '--swiper-pagination-color': '#fff',
+        }}
+      >
+        {slidesData.map((slide) => (
+          <SwiperSlide key={slide.id}>
+            <div className="relative h-[500px] w-full">
+              <img
+                src={slide.imageUrl}
+                alt={slide.caption}
+                className="w-full h-full object-cover"
+              />
+              {/* UPDATED: Improved the text overlay for better readability */}
+              <div className="absolute bottom-0 left-0 w-full pt-20 pb-6 px-6 bg-gradient-to-t from-black/70 to-transparent">
+                <p className="text-white text-lg font-semibold drop-shadow-md">
+                  {slide.caption}
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="bg-white/10 rounded-2xl p-4 md:p-6 backdrop-blur-sm">
-            <div className="aspect-[16/9] w-full overflow-hidden rounded-xl">
-              <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200&auto=format&fit=crop" alt="Campus overview"/>
-            </div>
-            <p className="text-sm text-white/80 mt-3">Recent Convocation Ceremony</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
 }
